@@ -1,0 +1,18 @@
+# Copy to terraform.tfvars and fill in real values.
+# terraform.tfvars is git-ignored — never commit it with real values.
+
+project_id = "your-project-id"
+region     = "us-west1"
+
+freshservice_domain            = "yourcompany-sandbox.freshservice.com"
+freshservice_catalog_item_id   = 0   # from Phase 2.1 of INTERN_GUIDE.md
+freshservice_approver_agent_id = 0   # from Phase 2.2 of INTERN_GUIDE.md
+
+gcp_dest_folder_id           = "000000000000"    # folder that created projects land in
+gcp_dest_folder_display_name = "sandbox-projects"
+
+poll_schedule = "*/5 * * * *"   # every 5 minutes
+dry_run       = true            # keep true until you've completed all tests
+
+# job_image_ref is added after your first `gcloud builds submit` (Phase 8) —
+# leave it unset for the first `terraform apply`.

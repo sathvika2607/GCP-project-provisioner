@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  provisioner-job:
+    build:
+      context: ./backend
+    env_file:
+      - .env
+    volumes:
+      # Mount local Application Default Credentials so the container can
+      # call GCP APIs the same way your local `gcloud auth login
+      # --update-adc` session does. Only needed once DRY_RUN=false.
+      - ${HOME}/.config/gcloud:/root/.config/gcloud:ro

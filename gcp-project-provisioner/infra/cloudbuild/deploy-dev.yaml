@@ -1,0 +1,33 @@
+# Builds the provisioner-job image and pushes it to Artifact Registry.
+# Invoked with:
+#   gcloud builds submit --config=infra/cloudbuild/deploy-dev.yaml \
+#     --substitutions="_REGION=...,_AR_REPO=...,_IMAGE=...,_IMAGE_TAG=..." .
+
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      - "build"
+      - "-t"
+      - "${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_AR_REPO}/${_IMAGE}:${_IMAGE_TAG}"
+      - "-f"
+      - "backend/Dockerfile"
+      - "backend"
+
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      - "push"
+      - "${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_AR_REPO}/${_IMAGE}:${_IMAGE_TAG}"
+
+images:
+  - "${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_AR_REPO}/${_IMAGE}:${_IMAGE_TAG}"
+
+substitutions:
+  _REGION: "us-west1"
+  _AR_REPO: "gcp-provisioner"
+  _IMAGE: "provisioner-job"
+  _IMAGE_TAG: "dev-latest"
+  _GIT_SHA: ""
+  _BUILD_TIMESTAMP: ""
+
+options:
+  logging: CLOUD_LOGGING_ONLY

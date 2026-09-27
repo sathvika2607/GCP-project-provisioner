@@ -1,0 +1,6 @@
+# Copy to backend.hcl and fill in the bucket you created in the bootstrap step.
+# backend.hcl is git-ignored — do not commit it with real values if your
+# bucket name is considered sensitive.
+
+bucket = "your-project-id-tfstate"
+prefix = "terraform/dev"
